@@ -26,7 +26,7 @@ exports.mountains_view_all_Page = async function(req, res) {
         try{
         themountains = await mountains.find();
         console.log(mountains)
-        res.render('mountains', { title: 'mountains Search Results', results: mountains });
+        res.render('mountains', { title: 'mountains Search Results', results: themountains });
         }
         catch(err){
         res.status(500);

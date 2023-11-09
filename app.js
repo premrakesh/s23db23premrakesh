@@ -22,8 +22,8 @@ async function recreateDB(){
   // Delete everything
   await mountains.deleteMany();
   let mountain1 = new mountains({name:"Mount everest", location: "Nepal",altitude:29032});
-  let mountain2 = new mountains({name:"Mount fujii", age:3,altitude:7972});
-  let mountain3 = new mountains({name:"Machu pichu", age:5,altitude:12388});
+  let mountain2 = new mountains({name:"Mount fujii", location:3,altitude:7972});
+  let mountain3 = new mountains({name:"Machu pichu", location:5,altitude:12388});
 
   mountain1.save().then(doc=>{
   console.log("First object saved")}

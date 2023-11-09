@@ -50,7 +50,7 @@ var usersRouter = require('./routes/users');
 var mountainsRouter = require('./routes/mountains');
 var boardRouter = require('./routes/board');
 var ChooseRouter = require('./routes/Choose');
-var resourceRouter = require('./routes/resources');
+var resourceRouter = require('./routes/resource');
 
 
 var app = express();
@@ -70,7 +70,7 @@ app.use('/users', usersRouter);
 app.use('/mountains', mountainsRouter);
 app.use('/board', boardRouter);
 app.use('/Choose', ChooseRouter);
-app.use('/resources',resourceRouter);
+app.use('/resource',resourceRouter);
 
 
 // catch 404 and forward to error handler

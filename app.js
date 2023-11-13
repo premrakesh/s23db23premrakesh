@@ -17,13 +17,12 @@ db.once("open", function(){
     console.log("Connection to DB succeeded");
 });
 
-// Delete existing dog instances (if needed)
 async function recreateDB(){
-  // Delete everything
+  //Delete everything
   await mountains.deleteMany();
-  let mountain1 = new mountains({name:"Mount everest", location: "Nepal",altitude:29032});
-  let mountain2 = new mountains({name:"Mount fujii", location:3,altitude:7972});
-  let mountain3 = new mountains({name:"Machu pichu", location:5,altitude:12388});
+  let mountain1 = new mountains({name:"Mount", location: "Nepal",altitude:29032});
+  let mountain2 = new mountains({name:"Mount fujii", location:"peru",altitude:7972});
+  let mountain3 = new mountains({name:"Machu pichu", location:"africa",altitude:12388});
 
   mountain1.save().then(doc=>{
   console.log("First object saved")}
@@ -51,8 +50,6 @@ var mountainsRouter = require('./routes/mountains');
 var boardRouter = require('./routes/board');
 var ChooseRouter = require('./routes/Choose');
 var resourceRouter = require('./routes/resource');
-
-
 var app = express();
 
 // view engine setup

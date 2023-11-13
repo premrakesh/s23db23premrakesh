@@ -9,19 +9,7 @@ exports.mountains_list = async function(req, res) {
         res.send(`{"error": ${err}}`);
         } 
     };
-    
-    // List of all Costumes
-exports.mountains_view_all_Page = async function(req, res) {
-    try{
-    themountains = await mountains.find();
-    res.send(themountains);
-    }
-    catch(err){
-    res.status(500);
-    res.send(`{"error": ${err}}`);
-    }
-    };
-    
+        
 exports.mountains_view_all_Page = async function(req, res) {
         try{
         themountains = await mountains.find();
@@ -93,16 +81,16 @@ exports.mountains_create_post = async function(req, res) {
             /* GET detail costume page */
 
             // Handle a show one view with id specified by query
-        exports.mountains_view_one_Page = async function(req, res) {
-        console.log("single view for id " + req.query.id)
-        try{
-            result = await mountains.findById( req.query.id)
-            res.render('mountainsdetail',
-                { title: 'mountains Detail', toShow: result });
-            }
-            catch(err){
-                res.status(500)
-                res.send(`{'error': '${err}'}`);
-            }
-            };
+exports.mountains_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    result = await mountains.findById( req.query.id)
+    res.render('mountainsdetail',
+    { title: 'Mountains Detail', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
         };

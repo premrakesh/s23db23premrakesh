@@ -6,4 +6,6 @@ router.get('/', function(req, res, next) {
   res.render('mountains', { title: 'Search Results mountains ' });
 });
 
+/* GET detail costume page */
+router.get('/detail', mountains_controlers.mountains_view_one_Page);
 module.exports = router;

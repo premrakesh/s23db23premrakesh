@@ -1,21 +1,28 @@
 extends layout
-block content
-h1= title
-- let mountainsid = toShow._id
-- let mountains_name = toShow.name
-- let mountains_location = toShow.location
-- let mountains_altide = toShow.altitude
-div
-div.row
-div(class='mountainsAttr mr-3') Mountain ID is:
-div #{mountainsid}
-div.row
-div(class='mountainsAttr mr-3') Mountain Type is:
-div #{mountains_name}
-div.row
-div(class='mountainsAttr mr-3') Mountain Size is:
-div #{mountains_location}
-div.row
-div(class='mountainsAttr mr-3') Mountain Cost is:
-div #{mountains_altide}
 
+block content
+  h1= title
+  if (toShow == null)
+    h2 No instance to show
+  else
+    - let mountainid = toShow._id
+    - let name = toShow.name
+    - let location = toShow.location
+    - let altitude = toShow.altitude
+
+    div(style='border: 1px solid black; padding: 15px; border-radius: 5px;')
+      div.row
+        div(class='mountainsAttr mr-3') Mountain ID is:
+        div(class='detail mr-3') #{mountainid}
+
+      div.row
+        div(class='mountainsAttr mr-3') Mountain Name is:
+        div(class='detail mr-3') #{name}
+
+      div.row
+        div(class='mountainsAttr mr-3') Mountain location is:
+        div(class='detail mr-3') #{location}
+
+      div.row
+        div(class='mountainsAttr mr-3') Mountain altitude is:
+        div(class='detail mr-3') #{altitude}

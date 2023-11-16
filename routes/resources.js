@@ -8,5 +8,4 @@ router.delete('/mountains/:id', mountains_controller.mountains_delete);
 router.put('/mountains/:id', mountains_controller.mountains_update_put);
 router.get('/mountains/:id', mountains_controller.mountains_detail);
 router.get('/mountains', mountains_controller.mountains_view_all_Page);
-router.get('/mountains',mountains_controller.mountains_list);
 module.exports = router;

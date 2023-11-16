@@ -1,7 +1,8 @@
+
 var mountains = require('../models/mountains');
 exports.mountains_list = async function(req, res) {
     try{
-        mountains = await mountains.find();
+        themountains = await mountains.find();
         res.send(mountains);
         }
         catch(err){
@@ -47,10 +48,12 @@ exports.mountains_create_post = async function(req, res) {
            res.send(`{"error": ${err}}`);
            }
           };
+            
           exports.mountains_delete = async function(req, res) {
+            //  res.send('NOT IMPLEMENTED: Dog delete DELETE ' + req.params.id);
             console.log("delete " + req.params.id)
             try {
-            result = await mountains.findByIdAndDelete( req.params.id)
+            result = await mountains.findByIdAndDelete(req.params.id)
             console.log("Removed " + result)
             res.send(result)
             } catch (err) {
@@ -81,6 +84,7 @@ exports.mountains_create_post = async function(req, res) {
             /* GET detail costume page */
 
             // Handle a show one view with id specified by query
+};
 exports.mountains_view_one_Page = async function(req, res) {
     console.log("single view for id " + req.query.id)
     try{
@@ -93,4 +97,48 @@ exports.mountains_view_one_Page = async function(req, res) {
     res.send(`{'error': '${err}'}`);
     }
     };
-        };
+
+    // Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+// Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.mountains_create_Page = function(req, res) {
+console.log("create view")
+try{
+res.render('mountainscreate', { title: 'Mountains Create'});
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+
+// Handle building the view for updating a costume.
+// query provides the id
+exports.mountains_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await mountains.findById(req.query.id)
+    res.render('mountainsupdate', { title: 'Mountains Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+
+    // Handle a delete one view with id from query
+exports.mountains_delete_Page = async function(req, res) {
+console.log("Delete view for id " + req.query.id)
+try{
+result = await mountains.findById(req.query.id)
+res.render('mountainsdelete', { title: 'Mountains Delete', toShow:
+result });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};

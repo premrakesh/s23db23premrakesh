@@ -3,53 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var mountains = require("./models/mountains");
-
-
-require('dotenv').config();
-const connectionString = process.env.MONGO_CON;
-const mongoose = require('mongoose');
-mongoose.connect(connectionString);
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once("open", function(){
-    console.log("Connection to DB succeeded");
-});
-
-async function recreateDB(){
-  //Delete everything
-  await mountains.deleteMany();
-  let mountain1 = new mountains({name:"Mount", location: "Nepal",altitude:29032});
-  let mountain2 = new mountains({name:"Mount fujii", location:"peru",altitude:7972});
-  let mountain3 = new mountains({name:"Machu pichu", location:"africa",altitude:12388});
-
-  mountain1.save().then(doc=>{
-  console.log("First object saved")}
-  ).catch(err=>{
-  console.error(err)
-  });
-  mountain2.save().then(doc=>{
-    console.log("Second object saved")}
-    ).catch(err=>{
-    console.error(err)
-    });
-    mountain3.save().then(doc=>{
-      console.log("Third object saved")}
-      ).catch(err=>{
-      console.error(err)
-      });
- }
- let reseed = true;
- if (reseed) {recreateDB();}
-
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var mountainsRouter = require('./routes/mountains');
 var boardRouter = require('./routes/board');
 var ChooseRouter = require('./routes/Choose');
-var resourceRouter = require('./routes/resource');
+
 var app = express();
 
 // view engine setup
@@ -67,7 +27,6 @@ app.use('/users', usersRouter);
 app.use('/mountains', mountainsRouter);
 app.use('/board', boardRouter);
 app.use('/Choose', ChooseRouter);
-app.use('/resource',resourceRouter);
 
 
 // catch 404 and forward to error handler

@@ -20,9 +20,9 @@ db.once("open", function(){
 async function recreateDB(){
   // Delete everything
   await mountains.deleteMany();
-  let mountains1 = new mountains({name:"Mount Everest", location:'Nepal',altitude:12345});
-  let mountains2 = new mountains({name:"Mount Everest", location:'Nepal',altitude:12345});
-  let mountains3 = new mountains({name:"Mount Everest", location:'Nepal',altitude:12345});
+  let mountains1 = new mountains({name:"Mount Everest", location:'Nepal',altitude:29032});
+  let mountains2 = new mountains({name:"Mount Fuji", location:'Tokyo',altitude:12467});
+  let mountains3 = new mountains({name:"Machu pichu", location:'Peru',altitude:7972});
   mountains1.save().then(doc=>{
   console.log("First object saved")}
   ).catch(err=>{

@@ -2,20 +2,14 @@ extends layout
 
 block content
   h1= title
-  -
-    let results=[
-      { name: "Mount everest", location: "Nepal", altitude:29032},
-      { name: "Machu picchu", location: "Peru", altitude:7972},
-      { name: "Mount Fuji", location: "Tokyo", altitude:12388}]
+  -let items=results;
   div(class="container-fluid")
     div(class="row")
-        for item, index in results
-          div(class="col-sm-2", onclick=`buy(${index})`)
-            p Name: #{item.name}
-            p Location: #{item.location}
-            p Altitude: #{item.altitude}  
-            div(onclick=`buy(${index})`)
-  script. 
-    function buy(index) {
-      alert(`You purchased item ${index}`);
+      each item in items
+        -let destination = `dispatch(\"/mountains/update?id=${item._id}\")`
+        div(class="row-sm-2", class="m-1") Item #{item.name}(#{item.location}) is #{item.altitude}
+          button.btn( class="btn-primary ml-1", onclick= destination) Update
+  script.
+    function dispatch(path){
+      window.location.href=path
     }       

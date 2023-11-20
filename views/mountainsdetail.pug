@@ -7,19 +7,19 @@ block content
   - let location = toShow.location
   - let altitude = toShow.altitude
 
-  div
-    div.row
-      div(class='mountainsAttr mr-3') Mountains ID is:
+  div(style='margin: 20px; padding: 20px; border: 1px solid #ddd;')
+    div.row(style='margin-bottom: 10px;')
+      div(class='mountainsAttr mr-3' style='font-weight: bold;') Mountains ID is:
       div #{mountainsid}
 
-    div.row
-      div(class='mountainsAttr mr-3') Mountains Type is:
+    div.row(style='margin-bottom: 10px;')
+      div(class='mountainsAttr mr-3' style='font-weight: bold;') Mountains Type is:
       div #{name}
 
-    div.row
-      div(class='mountainsAttr mr-3') Mountains Size is:
+    div.row(style='margin-bottom: 10px;')
+      div(class='mountainsAttr mr-3' style='font-weight: bold;') Mountains Size is:
       div #{location}
 
-    div.row
-      div(class='mountainsAttr mr-3') Mountains Cost is:
+    div.row(style='margin-bottom: 10px;')
+      div(class='mountainsAttr mr-3' style='font-weight: bold;') Mountains Cost is:
       div #{altitude}

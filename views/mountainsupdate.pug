@@ -1,0 +1,46 @@
+extends layout
+
+block content
+  h1= title
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let mountainsid = toShow._id
+    - let name = toShow.name
+    - let location = toShow.location
+    - let altitude = toShow.altitude
+
+    div.row(class='mb-2')
+      div.mr-1 ID is
+      div #{mountainsid}
+
+    - let actionid = "/resource/mountains/" + mountainsid
+    form(id='MountainsForm', action= actionid, method="PUT")
+      div.form-group
+        label.mountainsAttr(for='name') Mountains name
+        input#name(type='text', name='name', value= name)
+      div.form-group
+        label.mountainsAttr(for='location') mountains location
+        input#location(type='text', name='location', value= location)
+      div.form-group
+        label.mountainsAttr(for='altitude') Mountains altitude
+        input#altitude(type='number', name='altitude', value= altitude)
+      input(type="submit")
+
+    script.
+      document.forms['MountainsForm'].addEventListener('submit', (event) => {
+        event.preventDefault();
+        // TODO do something here to show the user that the form is being submitted
+        fetch(event.target.action, {
+          method: 'PUT',
+          body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Update succeeded");
+          // TODO handle the body
+        }).catch((error) => {
+          // TODO handle the error
+          alert("Update failed " + error);
+        });
+      });

@@ -6,10 +6,41 @@ var logger = require('morgan');
 var mountains = require("./models/mountains");
 
 require('dotenv').config();
-const connectionString =
-process.env.MONGO_CON
+const connectionString =process.env.MONGO_CON
 mongoose = require('mongoose');
 mongoose.connect(connectionString);
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once("open", function(){
+    console.log("Connection to DB succeeded");
+});
+
+// We can seed the collection if needed on server start
+async function recreateDB(){
+  // Delete everything
+  await mountains.deleteMany();
+  let mountains1 = new mountains({name:"Mount Everest", location:'Nepal',altitude:12345});
+  let mountains2 = new mountains({name:"Mount Everest", location:'Nepal',altitude:12345});
+  let mountains3 = new mountains({name:"Mount Everest", location:'Nepal',altitude:12345});
+  mountains1.save().then(doc=>{
+  console.log("First object saved")}
+  ).catch(err=>{
+  console.error(err)
+  });
+  mountains2.save().then(doc=>{
+    console.log("Second object saved")}
+    ).catch(err=>{
+    console.error(err)
+    });
+    mountains3.save().then(doc=>{
+      console.log("Third object saved")}
+      ).catch(err=>{
+      console.error(err)
+      });
+ }
+let reseed = true;
+if (reseed) {recreateDB();}
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -54,36 +85,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-//Get the default connection
-var db = mongoose.connection;
-//Bind connection to error event
-db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
-db.once("open", function(){
-console.log("Connection to DB succeeded")});
-
-// We can seed the collection if needed on server start
-async function recreateDB(){
-  // Delete everything
-  await mountains.deleteMany();
-  let mountains1 = new mountains({name:"Mount Everest", location:'Nepal',altitude:12345});
-  let mountains2 = new mountains({name:"Mount Everest", location:'Nepal',altitude:12345});
-  let mountains3 = new mountains({name:"Mount Everest", location:'Nepal',altitude:12345});
-  mountains1.save().then(doc=>{
-  console.log("First object saved")}
-  ).catch(err=>{
-  console.error(err)
-  });
-  mountains2.save().then(doc=>{
-    console.log("Second object saved")}
-    ).catch(err=>{
-    console.error(err)
-    });
-    mountains3.save().then(doc=>{
-      console.log("Third object saved")}
-      ).catch(err=>{
-      console.error(err)
-      });
- }
-let reseed = true;
-if (reseed) {recreateDB();}
 module.exports = app;

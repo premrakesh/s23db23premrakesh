@@ -10,11 +10,18 @@ res.status(500);
 res.send(`{"error": ${err}}`);
 }
 };
-// for a specific Costume.
-exports.mountains_detail = function(req, res) {
-res.send('NOT IMPLEMENTED: mountains detail: ' + req.params.id);
-};
-// Handle Costume create on POST.
+// for a specific mountains.
+exports.mountains_detail = async function(req, res) {
+    console.log("detail" + req.params.id)
+    try {
+    result = await mountains.findById( req.params.id)
+    res.send(result)
+    } catch (error) {
+    res.status(500)
+    res.send(`{"error": document for id ${req.params.id} not found`);
+    }
+    };
+// Handle mountains create on POST.
 exports.mountains_create_post = async function(req, res) {
 console.log(req.body)
 let document = new mountains();
@@ -34,20 +41,67 @@ res.status(500);
 res.send(`{"error": ${err}}`);
 }
 };
-// Handle Costume delete form on DELETE.
-exports.mountains_delete = function(req, res) {
-res.send('NOT IMPLEMENTED: mountains delete DELETE ' + req.params.id);
+// Handle Costume delete on DELETE.
+exports.mountains_delete = async function(req, res) {
+console.log("delete " + req.params.id)
+try {
+result = await mountains.findByIdAndDelete( req.params.id)
+console.log("Removed " + result)
+res.send(result)
+} catch (err) {
+res.status(500)
+res.send(`{"error": Error deleting ${err}}`);
+}
 };
 // Handle Costume update form on PUT.
-exports.mountains_update_put = function(req, res) {
-res.send('NOT IMPLEMENTED: mountains update PUT' + req.params.id);
+exports.mountains_update_put = async function(req, res) {
+console.log(`update on id ${req.params.id} with body
+${JSON.stringify(req.body)}`)
+try {
+let toUpdate = await mountains.findById( req.params.id)
+// Do updates of properties
+if(req.body.mountains_type)
+toUpdate.name = req.body.name;
+if(req.body.location) toUpdate.location = req.body.location;
+if(req.body.altitude) toUpdate.altitude = req.body.altitude;
+let result = await toUpdate.save();
+console.log("Sucess " + result)
+res.send(result)
+} catch (err) {
+res.status(500)
+res.send(`{"error": ${err}: Update for id ${req.params.id}
+failed`);
+}
 };
+// Handle a show one view with id specified by query
+exports.mountains_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    result = await mountains.findById(req.query.id)
+    res.render('mountainsdetail',{ title: 'Mountains Detail', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+   };
+
+   exports.mountains_create_Page = function(req, res) {
+    console.log("create view")
+    try{
+    res.render('mountainscreate', { title: 'Mountains Create'});
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+   };
 // VIEWS
 // Handle a show all view
 exports.mountains_view_all_Page = async function(req, res) {
 try{
-themountains = await themountains.find();
-res.render('mountains', { title: 'Mountains Search Results', results: themountains });
+mountains = await mountains.find();
+res.render('mountains', { title: 'Mountains Search Results', results: mountains });
 }
 catch(err){
 res.status(500);

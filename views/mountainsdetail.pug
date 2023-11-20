@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  - let mountainsid = toShow._id
+  - let name = toShow.name
+  - let location = toShow.location
+  - let altitude = toShow.altitude
+
+  div
+    div.row
+      div(class='mountainsAttr mr-3') Mountains ID is:
+      div #{mountainsid}
+
+    div.row
+      div(class='mountainsAttr mr-3') Mountains Type is:
+      div #{name}
+
+    div.row
+      div(class='mountainsAttr mr-3') Mountains Size is:
+      div #{location}
+
+    div.row
+      div(class='mountainsAttr mr-3') Mountains Cost is:
+      div #{altitude}

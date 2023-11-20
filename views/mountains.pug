@@ -3,19 +3,19 @@ extends layout
 block content
   h1= title
   -
-    let results=[
-      { name: "Mount everest", location: "Nepal", altitude:29032},
-      { name: "Machu picchu", location: "Peru", altitude:7972},
-      { name: "Mount Fuji", location: "Tokyo", altitude:12388}]
+    let items = results || []  
   div(class="container-fluid")
     div(class="row")
-        for item, index in results
+      if items.length  
+        each item, index in items
           div(class="col-sm-2", onclick=`buy(${index})`)
             p Name: #{item.name}
             p Location: #{item.location}
             p Altitude: #{item.altitude}  
             div(onclick=`buy(${index})`)
-  script. 
+      else
+        p No results available
+  script.
     function buy(index) {
       alert(`You purchased item ${index}`);
-    }       
+    }

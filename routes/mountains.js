@@ -1,9 +1,8 @@
 var express = require('express');
+const mountains_controlers= require('../controllers/mountains');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('mountains', { title: 'Search Results mountains ' });
-});
+/* GET costumes */
+router.get('/', mountains_controlers.mountains_view_all_Page );
 
 module.exports = router;

@@ -2,14 +2,24 @@ extends layout
 
 block content
   h1= title
-  -let items=results;
+  a(class="btn btn-success" href="/mountains/create") Create
+  -
+    let results=[
+      { name: "Mount everest", location: "Nepal", altitude:29032},
+      { name: "Machu picchu", location: "Peru", altitude:7972},
+      { name: "Mount Fuji", location: "Tokyo", altitude:12388}]
   div(class="container-fluid")
     div(class="row")
-      each item in items
-        -let destination = `dispatch(\"/mountains/update?id=${item._id}\")`
-        div(class="row-sm-2", class="m-1") Item #{item.name}(#{item.location}) is #{item.altitude}
-          button.btn( class="btn-primary ml-1", onclick= destination) Update
-  script.
-    function dispatch(path){
-      window.location.href=path
+        for item, index in results
+          div(class="col-sm-2", onclick=`buy(${index})`)
+            p Name: #{item.name}
+            p Location: #{item.location}
+            p Altitude: #{item.altitude}  
+            div(onclick=`buy(${index})`)
+            button.btn( class="btn-primary ml-1", onclick= destination) Update
+            a(class="btn btn-danger" href=`/mountains/delete?id=${item._id}`) Delete
+            a(class="btn btn-dark" href=`/mountains/detail?id=${item._id}`) Details
+  script. 
+    function buy(index) {
+      alert(`You purchased item ${index}`);
     }       

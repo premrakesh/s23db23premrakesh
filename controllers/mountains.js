@@ -55,24 +55,25 @@ res.send(`{"error": Error deleting ${err}}`);
 };
 // Handle Costume update form on PUT.
 exports.mountains_update_put = async function(req, res) {
-console.log(`update on id ${req.params.id} with body
-${JSON.stringify(req.body)}`)
-try {
-let toUpdate = await mountains.findById( req.params.id)
-// Do updates of properties
-if(req.body.mountains_type)
-toUpdate.name = req.body.name;
-if(req.body.location) toUpdate.location = req.body.location;
-if(req.body.altitude) toUpdate.altitude = req.body.altitude;
-let result = await toUpdate.save();
-console.log("Sucess " + result)
-res.send(result)
-} catch (err) {
-res.status(500)
-res.send(`{"error": ${err}: Update for id ${req.params.id}
-failed`);
-}
-};
+    console.log(`update on id ${req.params.id} with body
+    ${JSON.stringify(req.body)}`)
+    try {
+      let toUpdate = await mountains.findById(req.params.id);
+  
+      // Do updates of properties
+      if (req.body.name) toUpdate.name = req.body.name;
+      if (req.body.location) toUpdate.location = req.body.location;
+      if (req.body.altitude) toUpdate.altitude = req.body.altitude;
+  
+      let result = await toUpdate.save();
+      console.log("Success " + result);
+      res.send(result);
+    } catch (err) {
+      res.status(500);
+      res.send(`{"error": "${err}": Update for id ${req.params.id} failed`);
+    }
+  };
+  
 // Handle a show one view with id specified by query
 exports.mountains_view_one_Page = async function(req, res) {
     console.log("single view for id " + req.query.id)
